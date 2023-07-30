@@ -82,8 +82,6 @@
 .ph{
   padding: 10px;
 }
-
-
 a{
   color: inherit;
   text-decoration: none;
@@ -114,6 +112,16 @@ a{
 }
 
 .log button:hover{
-  background: #5a7177;
+  background: #61dafb;
   color: #fff;
+}
+
+.footer{
+  position: fixed;
+  bottom: 0;
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background: #fff;
 }
