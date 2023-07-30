@@ -1,54 +1,56 @@
-import React, { lazy, Suspense } from "react";
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login } from "./components/Auth/Login";
-import Layout from "./components/Auth/Layout";
-import LoadingSkeleton from "./pages/LoadingSkeleton";
-const NotFound = lazy(() => import("./pages/NotFound"));
-const Home = lazy(() => import("./components/Home"));
-const CardDetails = lazy(() => import("./components/CardDetails"));
-const History = lazy(() => import("./components/History"));
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import CardDetails from './components/CardDetails';
+import Calendar from './components/Text';
+import History from './components/History';
+import { Login } from './components/Auth/Login';
+import Layout from './components/Auth/Layout';
 
 function App() {
-  return (
-    <div className="">
-      {/* LAYOUT OF THE APP */}
-      <BrowserRouter>
-        <Suspense fallback={<LoadingSkeleton />}>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route
-              path="/home"
-              element={
-                <Layout>
-                  <Home />
-                </Layout>
-              }
-            />
+    return (
+        <div className="">
+            {/* LAYOUT OF THE APP */}
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route
+                        path="/home"
+                        element={
+                            <Layout>
+                                <Home />
+                            </Layout>
+                        }
+                    />
 
-            <Route
-              path="hotel-details/:slug"
-              element={
-                <Layout>
-                  <CardDetails />
-                </Layout>
-              }
-            />
-
-            <Route
-              path="/history"
-              element={
-                <Layout>
-                  <History />
-                </Layout>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </div>
-  );
+                    <Route
+                        path="hotel-details/:slug"
+                        element={
+                            <Layout>
+                                <CardDetails />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/texting"
+                        element={
+                            <Layout>
+                                <Calendar />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/history"
+                        element={
+                            <Layout>
+                                <History />
+                            </Layout>
+                        }
+                    />
+                </Routes>
+            </BrowserRouter>
+        </div>
+    );
 }
 
 export default App;

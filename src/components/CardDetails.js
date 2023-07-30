@@ -3,11 +3,6 @@ import { useParams } from "react-router";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CardModal from "./CardModal";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, Rating } from "@mui/material";
-import { useQuery } from "react-query";
-import LoadingDetails from "../pages/LoadingDetails";
 
 const CardDetails = () => {
   const params = useParams();
@@ -15,44 +10,26 @@ const CardDetails = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const { isLoading } = useQuery(["repo"], () =>
+  useEffect(() => {
     axios
       .get(`https://hotels-api-4ltr.onrender.com/api/hotels/${params.slug}`)
-      .then((res) => setHotelInfo(res.data))
-  );
-  // useEffect(() => {
-  //   axios
-  //     .get(`https://hotels-api-4ltr.onrender.com/api/hotels/${params.slug}`)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setHotelInfo(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [params.slug]);
+      .then((response) => {
+        console.log(response.data);
+        setHotelInfo(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [params.slug]);
 
-  return isLoading ? (
-    <LoadingDetails />
-  ) : (
-    <Container maxWidth="lg" sx={{ marginTop: 10, marginBottom: 10 }}>
+  return (
+    <Container maxWidth="lg" sx={{ marginTop: 10 }}>
       <Typography variant="h4">{hotelInfo.name}</Typography>
-      <Grid container justifyContent={"center"} spacing={2}>
+      <Grid container justifyContent={"center"}>
         {hotelInfo.images?.map((image) => {
           return (
             <Grid item lg={4}>
-              <Card width={"100%"} height={345}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="250"
-                    image={image.img}
-                    alt="hotel"
-                  />
-                </CardActionArea>
-              </Card>
-              {/* <img
+              <img
                 src={image.img}
                 alt="Hotel"
                 style={{
@@ -62,7 +39,7 @@ const CardDetails = () => {
                   margin: "10px",
                   height: "200px",
                 }}
-              /> */}
+              />
             </Grid>
           );
         })}

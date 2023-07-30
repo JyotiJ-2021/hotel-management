@@ -13,7 +13,7 @@ const Cards = (props) => {
     navigate(`/hotel-details/${hotelDetails.slug}`); // Redirect the user to a different route
   };
   return (
-    <Card onClick={onCardClick} width={"100%"} height={345}>
+    <Card onClick={onCardClick} sx={{ maxWidth: 345, marginBottom: 5 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -28,11 +28,11 @@ const Cards = (props) => {
           <Typography variant="body2" color="text.primary">
             ${hotelDetails.pricePerNight} night
           </Typography>
-          {/* <Rating
+          <Rating
             name="read-only"
             value={Math.floor(hotelDetails.rating)}
             readOnly
-          /> */}
+          />
         </CardContent>
       </CardActionArea>
     </Card>
