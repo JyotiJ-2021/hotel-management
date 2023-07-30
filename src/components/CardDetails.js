@@ -6,7 +6,6 @@ import CardModal from "./CardModal";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea, Rating } from "@mui/material";
-import { useQuery } from "react-query";
 import LoadingDetails from "../pages/LoadingDetails";
 
 const CardDetails = () => {
@@ -15,23 +14,25 @@ const CardDetails = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const { isLoading } = useQuery(["repo"], () =>
-    axios
-      .get(`https://hotels-api-4ltr.onrender.com/api/hotels/${params.slug}`)
-      .then((res) => setHotelInfo(res.data))
-  );
-  // useEffect(() => {
+  const [isLoading, setLoading] = useState(false);
+  // const { isLoading } = useQuery(["repo"], () =>
   //   axios
   //     .get(`https://hotels-api-4ltr.onrender.com/api/hotels/${params.slug}`)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setHotelInfo(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [params.slug]);
+  //     .then((res) => setHotelInfo(res.data))
+  // );
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`https://hotels-api-4ltr.onrender.com/api/hotels/${params.slug}`)
+      .then((response) => {
+        console.log(response.data);
+        setLoading(false);
+        setHotelInfo(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [params.slug]);
 
   return isLoading ? (
     <LoadingDetails />

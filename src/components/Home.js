@@ -4,21 +4,29 @@ import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { Container, Pagination } from "@mui/material";
 import axios from "axios";
-import { useLocation } from "react-router";
 import Cards from "./Cards";
 
-import { useQuery } from "react-query";
 import LoadingSkeleton from "../pages/LoadingSkeleton";
+
 const Home = () => {
   const [hotels, setHotels] = useState([]);
   const [page, setPage] = useState(1);
   const hotelLimitPerPage = 6;
+  const [isLoading, setLoading] = useState(false);
 
-  const { isLoading } = useQuery(["repo"], () =>
+  useEffect(() => {
+    setLoading(true);
     axios
       .get("https://hotels-api-4ltr.onrender.com/api/hotels")
-      .then((res) => setHotels(res.data))
-  );
+      .then((response) => {
+        console.log(response.data);
+        setLoading(false);
+        setHotels(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const startIndex = (page - 1) * hotelLimitPerPage;
   const endIndex = page * hotelLimitPerPage - 1;
