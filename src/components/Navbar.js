@@ -3,56 +3,53 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import MenuIcon from "@mui/icons-material/Menu";
-import Button from "@mui/material/Button";
-import CustomizedSwitches from "./ThemeSitch";
-import Avatar from "@mui/material/Avatar";
-import { useNavigate } from "react-router";
-import { auth } from "../firebase.config.js";
-import { signOut } from "firebase/auth";
+import MenuIcon from "@mui/icons-material/Menu"; 
 import { Link } from "react-router-dom";
+import Person3Icon from '@mui/icons-material/Person3';
+import { useState } from "react";
+import SwipeableTemporaryDrawer from "./SideDrawer";
 
 const NavBar = ({ name }) => {
-  const navigate = useNavigate();
-  const logout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/");
-    } catch (err) {
-      console.error(err);
+ 
+
+   
+  const [state, setState] = useState({
+    
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
     }
+
+
+    setState({ ...state, [anchor]: open });
   };
 
-  //for search
-  /**
-   * const [serch, setSearch] =useState("")
-   * const handleSearch=()=>{
-   * const filterdata = hotels.filter((hotel)=>
-   * hotel.address.toLowercase().includes(search.toLowerCase())
-   *  hotel.name.toLowercase().includes(search.toLowerCase())
-   * setHotels(filterdata)
-   * )}
-   */
-
-  console.log(name);
   return (
     <>
       <AppBar component="nav" style={{ background: "#fff", color: "#333" }}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             sx={{ mr: 2, display: { sm: "none" } }}
+            //todo open menu in mobile view
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display:  "block" }}
           >
-            <Link to="/home"> BookStay</Link>
+            <Link to="/"> BookStay</Link>
           </Typography>
           <Box
             sx={{
@@ -60,16 +57,17 @@ const NavBar = ({ name }) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-            }}
+            }} 
           >
-            {name}
-            {/* <CustomizedSwitches /> */}
-            <Button sx={{ color: "#fff", marginRight: "25px" }}>Home</Button>
-            <Avatar>A</Avatar>
-            {/* <button onClick={logout}>Log out</button> */}
+           
+        
+         <IconButton aria-label="person3icon"   color="primary" onClick={toggleDrawer("right", true)}>
+         <Person3Icon/>
+         </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
+        <SwipeableTemporaryDrawer toggleDrawer={toggleDrawer}  state={state} /> 
     </>
   );
 };

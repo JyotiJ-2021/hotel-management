@@ -38,11 +38,13 @@ const CardDetails = () => {
     <LoadingDetails />
   ) : (
     <Container maxWidth="lg" sx={{ marginTop: 10, marginBottom: 10 }}>
-      <Typography variant="h4">{hotelInfo.name}</Typography>
+      <Typography variant="h4" sx={{    fontSize: "22px",
+    fontWeight: "600",
+    marginBottom: "20px"}}>{hotelInfo.name}</Typography>
       <Grid container justifyContent={"center"} spacing={2}>
         {hotelInfo.images?.map((image) => {
           return (
-            <Grid item lg={4}>
+            <Grid item lg={4} width="100%">
               <Card width={"100%"} height={345}>
                 <CardActionArea>
                   <CardMedia
@@ -67,7 +69,7 @@ const CardDetails = () => {
             </Grid>
           );
         })}
-        <Grid>
+        <Grid style={{padding:"20px"}}>
           <Typography>{hotelInfo.aboutThePlace}</Typography>
           <h2>What this place offers:</h2>
           <Typography>

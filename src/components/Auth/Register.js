@@ -18,30 +18,22 @@ import { useNavigate } from "react-router";
  
 const defaultTheme = createTheme();
 
-export   function Login() {
+export function Register() {
   const navigate = useNavigate();
  
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
    const users=({
+      name: data.get("name"),
       email: data.get('email'),
       password: data.get('password'),
+      
     });
 
-  let user = JSON.parse(localStorage.getItem("userh"))
+    localStorage.setItem("userh",JSON.stringify(users))
 
-  if(user ){
-    if( user.email === users.email && user.password === users.password){
-      navigate("/")
-       localStorage.setItem("isLogin", true)
-    }else
-       alert("authentication failed");
-
-  }else{
-    alert("Please register first!")
-  }
-    
+    navigate("/login")
   };
 
   return (
@@ -60,9 +52,19 @@ export   function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Log in
+           Register
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+            />
             <TextField
               margin="normal"
               required
@@ -83,6 +85,7 @@ export   function Login() {
               id="password"
               autoComplete="current-password"
             />
+            
             {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -93,7 +96,7 @@ export   function Login() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-             Login
+             Register
             </Button>
             <Grid container>
               <Grid item xs>
@@ -102,8 +105,8 @@ export   function Login() {
                 </Link> */}
               </Grid>
               <Grid item>
-                <Link href="/register" variant="body2">
-                  {"Don't have an account? Register"}
+                <Link href="/login" variant="body2">
+                  {"Already have an account? Login"}
                 </Link>
               </Grid>
             </Grid>

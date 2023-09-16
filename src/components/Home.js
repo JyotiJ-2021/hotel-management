@@ -18,8 +18,7 @@ const Home = () => {
     setLoading(true);
     axios
       .get("https://hotels-api-4ltr.onrender.com/api/hotels")
-      .then((response) => {
-        console.log(response.data);
+      .then((response) => { 
         setLoading(false);
         setHotels(response.data);
       })

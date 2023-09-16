@@ -11,8 +11,7 @@ import {
   Modal,
   Button,
 } from "@mui/material";
-import DatePicker from "react-datepicker";
-import { db, auth } from "../firebase.config.js";
+import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router";
@@ -27,8 +26,7 @@ const CardModal = ({ open, handleClose, price, hotelInfo }) => {
   const navigate = useNavigate();
   const handleChange = (event) => {
     setGuestNumber(event.target.value);
-  };
-  console.log(hotelInfo.pricePerNight, price);
+  }; 
   const handleReservation = () => {
     const reserveList = JSON.parse(localStorage.getItem("reserve")) || [];
 
@@ -132,9 +130,10 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "auto",
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "0px solid #000",
   boxShadow: 24,
   p: 4,
+  outline:"none"
 };

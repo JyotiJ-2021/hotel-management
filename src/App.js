@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login } from "./components/Auth/Login";
 import Layout from "./components/Auth/Layout";
 import LoadingSkeleton from "./pages/LoadingSkeleton";
+import { Register } from "./components/Auth/Register";
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Home = lazy(() => import("./components/Home"));
 const CardDetails = lazy(() => import("./components/CardDetails"));
@@ -16,9 +17,10 @@ function App() {
       <BrowserRouter>
         <Suspense fallback={<LoadingSkeleton />}>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route
-              path="/home"
+              path="/"
               element={
                 <Layout>
                   <Home />

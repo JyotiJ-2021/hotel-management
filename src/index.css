@@ -21,3 +21,7 @@ code {
 .mb-4{
   margin-bottom: 10px !important;
 }
+
+::-webkit-scrollbar{
+  display: none
+}
